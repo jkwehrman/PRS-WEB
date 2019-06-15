@@ -15,7 +15,7 @@ public class PurchaseRequestLineItem {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-//	private int purchaseRequestID;
+	//	private int purchaseRequestID;
 	@ManyToOne
 	@JoinColumn(name="PurchaseRequestID")
 	private PurchaseRequest purchaseRequest;
@@ -23,14 +23,14 @@ public class PurchaseRequestLineItem {
 	@JoinColumn(name="productID")
 	private Product product;
 	private int quantity;
-	
+
 	public PurchaseRequestLineItem() {
 		id =0;
 		purchaseRequest =null;
 		product =null;
 		quantity =0;
 	}
-	
+
 	public PurchaseRequestLineItem(int id, PurchaseRequest purchaseRequest, Product product, int quantity) {
 		this.id = id;
 		this.purchaseRequest = purchaseRequest;
@@ -39,7 +39,7 @@ public class PurchaseRequestLineItem {
 	}
 
 	public PurchaseRequestLineItem(PurchaseRequest purchaseRequest, Product product, int quantity) {
-	
+
 		this.purchaseRequest = purchaseRequest;
 		this.product = product;
 		this.quantity = quantity;
@@ -81,8 +81,7 @@ public class PurchaseRequestLineItem {
 		return "PurchaseRequestLineItem [id=" + id + ", purchaseRequest=" + purchaseRequest + ", product="
 				+ product + ", quantity=" + quantity + "]";
 	}
-	
-	
+
 }
 
 

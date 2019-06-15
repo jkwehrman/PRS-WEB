@@ -11,12 +11,4 @@ public interface VendorRepository  extends CrudRepository <Vendor, Integer> {
 
 	Optional<Vendor> findByName(String name);
 
-//	Object save(Product u); 
-	
-
-	
-
-	
-	
-	
 }

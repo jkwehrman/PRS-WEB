@@ -58,18 +58,18 @@ public class VendorController {
 		return jr;
 	}
 
-		@PostMapping("/")
-		public JsonResponse add(@RequestBody Vendor u) {
-			JsonResponse jr = null;
-			//May need to enhance exception handling if more than one exception type needs to be caught
-			try {
-				jr=JsonResponse.getInstance(vendorRepo.save(u));
-			}
-			catch (Exception e ) {
-				jr=JsonResponse.getInstance(e);
-			}
-			return jr;
+	@PostMapping("/")
+	public JsonResponse add(@RequestBody Vendor u) {
+		JsonResponse jr = null;
+		//May need to enhance exception handling if more than one exception type needs to be caught
+		try {
+			jr=JsonResponse.getInstance(vendorRepo.save(u));
 		}
+		catch (Exception e ) {
+			jr=JsonResponse.getInstance(e);
+		}
+		return jr;
+	}
 
 	@PutMapping("/")
 	public JsonResponse update(@RequestBody Vendor u) {
@@ -88,7 +88,7 @@ public class VendorController {
 		}
 		return jr;
 	}
-	
+
 	@DeleteMapping("/")
 	public JsonResponse delete(@RequestBody Vendor u) {
 		JsonResponse jr = null;

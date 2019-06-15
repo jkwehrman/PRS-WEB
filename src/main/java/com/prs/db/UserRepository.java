@@ -10,6 +10,6 @@ import com.prs.business.PurchaseRequest;
 public interface UserRepository extends CrudRepository<User, Integer> {
 
 	public Optional<User> findByUserNameAndPassword(String userName, String password);
-	
+
 }
 

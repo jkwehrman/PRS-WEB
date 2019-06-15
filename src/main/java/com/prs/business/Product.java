@@ -42,10 +42,10 @@ public class Product {
 		this.unit = unit;
 		this.photopath = photopath;
 	}
-	
+
 	public Product(Vendor vendor, String partNumber, String name, double price, String unit, String photopath) {
 		super();
-		
+
 		this.vendor = vendor;
 		this.partNumber = partNumber;
 		this.name = name;
@@ -115,6 +115,6 @@ public class Product {
 		return "Product [id=" + id + ", vendor=" + vendor + ", partNumber=" + partNumber + ", name=" + name
 				+ ", price=" + price + ", unit=" + unit + ", photopath=" + photopath + "]";
 	}
-	
-	
+
+
 }

@@ -62,7 +62,7 @@ public class PurchaseRequestController {
 	@PostMapping("/")
 	public JsonResponse add(@RequestBody PurchaseRequest u) {
 		JsonResponse jr = null;
-		//May need to enhance exception handling if more than one exception type needs to be caught
+		u.setSubmittedDate(LocalDateTime.now());
 		try { 
 			jr=JsonResponse.getInstance(purchaseRequestRepo.save(u));
 		}
@@ -191,9 +191,9 @@ public class PurchaseRequestController {
 	public JsonResponse listReview() {
 		JsonResponse jr = null;
 		User user = new User(1, "gloczzzzzzkhard", "gpassword", "guilderoy", "lockheart", "123-432-3456", "guilderoy@hogwarts.edu", false,true);
-				 
 
-				
+
+
 		try {
 			List<PurchaseRequest> pr = purchaseRequestRepo.findByStatusAndUserNot("review", user );
 			if(!pr.isEmpty()) {

@@ -55,15 +55,15 @@ public class UserController {
 				jr=JsonResponse.getInstance(user);
 			}	else {
 				jr=JsonResponse.getInstance("No user name found for login id: "+u.getUserName());
+			}
 		}
-		}
-		
+
 		catch (Exception e ) {
 			jr=JsonResponse.getInstance(e);
 		}
 		return jr;
-		
-			
+
+
 	}
 
 

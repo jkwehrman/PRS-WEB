@@ -3,18 +3,18 @@ package com.prs.business;
 import java.util.ArrayList;
 
 public class JsonResponse {
-	
+
 	private Object data = null;
 	private Object errors = null;
 	private Object meta = null;
 
-	
+
 	// Good response - single or multiple resource
 	public JsonResponse(Object d) {
 		data = d;
 		meta = new ArrayList<>();
 	}
-	
+
 	// 500 / error response
 	public JsonResponse(Exception e) {
 		errors = e;
@@ -23,7 +23,7 @@ public class JsonResponse {
 	public JsonResponse(String s) {
 		errors = s;
 	}
-	
+
 	public Object getData() {
 		return data;
 	}
@@ -52,18 +52,18 @@ public class JsonResponse {
 	public static JsonResponse getInstance(Object d) { 
 		return new JsonResponse(d);
 	}
-	
+
 	//unsuccessful call - pass in the exception thrown 
 	public static JsonResponse getInstance(Exception e) {
 		return new JsonResponse(e);
 	}
-	
+
 	//Used when we want to pass a message back to front end
 	public static JsonResponse getInstance(String s) {
 		return new JsonResponse(s);
 	}
 }
-	
+
 
 
 

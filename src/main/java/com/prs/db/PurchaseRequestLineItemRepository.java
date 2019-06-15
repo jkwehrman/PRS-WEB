@@ -10,8 +10,8 @@ import com.prs.business.PurchaseRequestLineItem;
 public interface PurchaseRequestLineItemRepository extends CrudRepository<PurchaseRequestLineItem, Integer> {
 
 	List<PurchaseRequestLineItem> findByPurchaseRequest(PurchaseRequest purchaseRequest);
-	
-	
-	
+
+
+
 } 
 

@@ -17,10 +17,10 @@ public class PurchaseRequest {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-//	@ManyToOne(fetch=FetchType.EAGER)
-  	@ManyToOne
-  	@JoinColumn(name="userID")
-  	private User user;
+	//	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne
+	@JoinColumn(name="userID")
+	private User user;
 	private String description;
 	private String justification;
 	private LocalDate dateNeeded;
@@ -29,26 +29,23 @@ public class PurchaseRequest {
 	private double total;
 	private LocalDateTime submittedDate;
 	private String reasonForRejection;  
-	
-	public PurchaseRequest () {
-	id =0;
-	user =null;
-	description ="";
-	justification ="";
-	dateNeeded =null;
-	deliveryMode ="";
-	status ="";
-	total =0.0;
-	submittedDate = null;
-	reasonForRejection ="";
-	}
-	
-	
 
+	public PurchaseRequest () {
+		id =0;
+		user =null;
+		description ="";
+		justification ="";
+		dateNeeded =null;
+		deliveryMode ="";
+		status ="";
+		total =0.0;
+		submittedDate = null;
+		reasonForRejection ="";
+	}
 
 	public PurchaseRequest (int id, User user, String description, String justification, LocalDate dateNeeded,
 			String deliveryMode, String status, double total, 
-		//	Date submittedDate, 
+			//	Date submittedDate, 
 			String reasonForRejection,
 			boolean isActive, LocalDate dateCreated, LocalDate dateUpdated, int updatedByUser) {
 		super();
@@ -76,7 +73,7 @@ public class PurchaseRequest {
 		this.total = total;
 		this.reasonForRejection = reasonForRejection;
 	}
-	
+
 	public int getId() {
 		return id;
 	}
@@ -175,8 +172,6 @@ public class PurchaseRequest {
 	public void setReasonForRejection(String reasonForRejection) {
 		this.reasonForRejection = reasonForRejection;
 	}
-
-
 
 	@Override
 	public String toString() {

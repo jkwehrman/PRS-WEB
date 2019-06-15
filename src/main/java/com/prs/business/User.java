@@ -9,7 +9,7 @@ import javax.persistence.Id;
 
 @Entity
 public class User {
-	
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
@@ -21,7 +21,7 @@ public class User {
 	private String email;
 	private boolean isReviewer;
 	private boolean isAdmin;
-	
+
 	public User() {
 		id=0;
 		userName="";
@@ -33,7 +33,6 @@ public class User {
 		isReviewer=false;
 		isAdmin=false;
 	}
-
 
 	public User(int id, String userName, String password, String firstName, String lastName, String phoneNumber,
 			String email, boolean isReviewer, boolean isAdmin) {
@@ -165,5 +164,5 @@ public class User {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 }
