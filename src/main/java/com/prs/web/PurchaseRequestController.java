@@ -1,6 +1,5 @@
 package com.prs.web;
 
-//import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 import java.time.LocalDate;
@@ -47,9 +46,9 @@ public class PurchaseRequestController {
 	public JsonResponse get(@PathVariable int id) {
 		JsonResponse jr = null;
 		try {
-			Optional<PurchaseRequest> u = purchaseRequestRepo.findById(id);
-			if(u.isPresent())
-				jr=JsonResponse.getInstance(u);
+			Optional<PurchaseRequest> pr = purchaseRequestRepo.findById(id);
+			if(pr.isPresent())
+				jr=JsonResponse.getInstance(pr);
 			else
 				jr=JsonResponse.getInstance("No purchase request found for id: "+id);
 		}
@@ -60,11 +59,11 @@ public class PurchaseRequestController {
 	}
 
 	@PostMapping("/")
-	public JsonResponse add(@RequestBody PurchaseRequest u) {
+	public JsonResponse add(@RequestBody PurchaseRequest pr) {
 		JsonResponse jr = null;
-		u.setSubmittedDate(LocalDateTime.now());
+		pr.setSubmittedDate(LocalDateTime.now());
 		try { 
-			jr=JsonResponse.getInstance(purchaseRequestRepo.save(u));
+			jr=JsonResponse.getInstance(purchaseRequestRepo.save(pr));
 		}
 		catch (Exception e ) {
 			e.printStackTrace();
@@ -74,12 +73,12 @@ public class PurchaseRequestController {
 	}
 
 	@PostMapping("/submit-new")
-	public JsonResponse submitNew(@RequestBody PurchaseRequest u) {
+	public JsonResponse submitNew(@RequestBody PurchaseRequest pr) {
 		JsonResponse jr = null;
-		u.setStatus("new");
-		u.setSubmittedDate(LocalDateTime.now());
+		pr.setStatus("new");
+		pr.setSubmittedDate(LocalDateTime.now());
 		try {
-			jr=JsonResponse.getInstance(purchaseRequestRepo.save(u));
+			jr=JsonResponse.getInstance(purchaseRequestRepo.save(pr));
 		}
 		catch (Exception e ) {
 			e.printStackTrace();
@@ -89,23 +88,23 @@ public class PurchaseRequestController {
 	}
 
 	@PutMapping("/submit-review")
-	public JsonResponse SubmitForReview(@RequestBody PurchaseRequest u) {
+	public JsonResponse SubmitForReview(@RequestBody PurchaseRequest pr) {
 		JsonResponse jr = null;
 		double costLimit = 50.00;
-		if (u.getTotal() < costLimit) {
-			u.setStatus("Approved");	
+		if (pr.getTotal() < costLimit) {
+			pr.setStatus("Approved");	
 		}
 		else {
-			u.setStatus("review");
+			pr.setStatus("review");
 		}
 		Date date = new Date();
-		u.setSubmittedDate(LocalDateTime.now());
+		pr.setSubmittedDate(LocalDateTime.now());
 		try {
-			if (purchaseRequestRepo.existsById(u.getId())) {
-				jr=JsonResponse.getInstance(purchaseRequestRepo.save(u));
+			if (purchaseRequestRepo.existsById(pr.getId())) {
+				jr=JsonResponse.getInstance(purchaseRequestRepo.save(pr));
 			}
 			else {
-				jr=JsonResponse.getInstance("PurchaseRequest id:  "+u.getId()+"does not exist and you are attemping to save it.");
+				jr=JsonResponse.getInstance("PurchaseRequest id:  "+pr.getId()+"does not exist and you are attemping to save it.");
 			}
 		}
 		catch (Exception e ) {
@@ -115,15 +114,15 @@ public class PurchaseRequestController {
 	}
 
 	@PutMapping("/reject")
-	public JsonResponse reject(@RequestBody PurchaseRequest u) {
+	public JsonResponse reject(@RequestBody PurchaseRequest pr) {
 		JsonResponse jr = null;
-		u.setStatus("Rejected");
+		pr.setStatus("Rejected");
 		try {
-			if (purchaseRequestRepo.existsById(u.getId())) {
-				jr=JsonResponse.getInstance(purchaseRequestRepo.save(u));
+			if (purchaseRequestRepo.existsById(pr.getId())) {
+				jr=JsonResponse.getInstance(purchaseRequestRepo.save(pr));
 			}
 			else {
-				jr=JsonResponse.getInstance("PurchaseRequest id:  "+u.getId()+"does not exist and you are attemping to save it.");
+				jr=JsonResponse.getInstance("PurchaseRequest id:  "+pr.getId()+"does not exist and you are attemping to save it.");
 			}
 		}
 		catch (Exception e ) {
@@ -133,16 +132,16 @@ public class PurchaseRequestController {
 	}
 
 	@PutMapping("/approve")
-	public JsonResponse approve(@RequestBody PurchaseRequest u) {
+	public JsonResponse approve(@RequestBody PurchaseRequest pr) {
 		JsonResponse jr = null;
-		u.setStatus("Approved");
-		u.setReasonForRejection(null);
+		pr.setStatus("Approved");
+		pr.setReasonForRejection(null);
 		try {
-			if (purchaseRequestRepo.existsById(u.getId())) {
-				jr=JsonResponse.getInstance(purchaseRequestRepo.save(u));
+			if (purchaseRequestRepo.existsById(pr.getId())) {
+				jr=JsonResponse.getInstance(purchaseRequestRepo.save(pr));
 			}
 			else {
-				jr=JsonResponse.getInstance("PurchaseRequest id:  "+u.getId()+"does not exist and you are attemping to save it.");
+				jr=JsonResponse.getInstance("PurchaseRequest id:  "+pr.getId()+"does not exist and you are attemping to save it.");
 			}
 		}
 		catch (Exception e ) {
@@ -152,14 +151,16 @@ public class PurchaseRequestController {
 	}
 
 	@PutMapping("/")
-	public JsonResponse update(@RequestBody PurchaseRequest u) {
+	public JsonResponse update(@RequestBody PurchaseRequest pr) {
 		JsonResponse jr = null;
 		try {
-			if (purchaseRequestRepo.existsById(u.getId())) {
-				jr=JsonResponse.getInstance(purchaseRequestRepo.save(u));
+			if (purchaseRequestRepo.existsById(pr.getId())) {
+				jr=JsonResponse.getInstance(purchaseRequestRepo.save(pr));
+
+
 			}
 			else {
-				jr=JsonResponse.getInstance("PurchaseRequest id:  "+u.getId()+"does not exist and you are attemping to save it.");
+				jr=JsonResponse.getInstance("PurchaseRequest id:  "+pr.getId()+"does not exist and you are attemping to save it.");
 			}
 		}
 		catch (Exception e ) {
@@ -169,16 +170,15 @@ public class PurchaseRequestController {
 	}
 
 	@DeleteMapping("/")
-	public JsonResponse delete(@RequestBody PurchaseRequest u) {
+	public JsonResponse delete(@RequestBody PurchaseRequest pr) {
 		JsonResponse jr = null;
-		//May need to enhance exception handling if more than one exception type needs to be caught
 		try {
-			if (purchaseRequestRepo.existsById(u.getId())) {
-				purchaseRequestRepo.delete(u);
+			if (purchaseRequestRepo.existsById(pr.getId())) {
+				purchaseRequestRepo.delete(pr);
 				jr=JsonResponse.getInstance("Purchase Request deleted.");
 			}
 			else {
-				jr=JsonResponse.getInstance("PurchaseRequest id:  "+u.getId()+"does not exist and you are attemping to save it.");
+				jr=JsonResponse.getInstance("PurchaseRequest id:  "+pr.getId()+"does not exist and you are attemping to save it.");
 			}
 		}
 		catch (Exception e ) {

@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.prs.business.JsonResponse;
 import com.prs.business.Product;
 import com.prs.business.User;
-import com.prs.db.ProductRepository;
 
 @RestController
 @RequestMapping("/products")
@@ -40,9 +39,9 @@ public class ProductController {
 	public JsonResponse get(@PathVariable int id) {
 		JsonResponse jr = null;
 		try {
-			Optional<Product> u = productRepo.findById(id);
-			if(u.isPresent())
-				jr=JsonResponse.getInstance(u);
+			Optional<Product> p = productRepo.findById(id);
+			if(p.isPresent())
+				jr=JsonResponse.getInstance(p);
 			else
 				jr=JsonResponse.getInstance("No product found for id: "+id);
 		}
@@ -54,10 +53,10 @@ public class ProductController {
 
 
 	@PostMapping("/")
-	public JsonResponse add(@RequestBody Product u) {
+	public JsonResponse add(@RequestBody Product p) {
 		JsonResponse jr = null;
 		try {
-			jr=JsonResponse.getInstance(productRepo.save(u));
+			jr=JsonResponse.getInstance(productRepo.save(p));
 		}
 		catch (Exception e ) {
 			jr=JsonResponse.getInstance(e);
@@ -66,14 +65,14 @@ public class ProductController {
 	}
 
 	@PutMapping("/")
-	public JsonResponse update(@RequestBody Product u) {
+	public JsonResponse update(@RequestBody Product p) {
 		JsonResponse jr = null;
 		try {
-			if (productRepo.existsById(u.getId())) {
-				jr=JsonResponse.getInstance(productRepo.save(u));
+			if (productRepo.existsById(p.getId())) {
+				jr=JsonResponse.getInstance(productRepo.save(p));
 			}
 			else {
-				jr=JsonResponse.getInstance("Product id:  "+u.getId()+"does not exist and you are attemping to save it.");
+				jr=JsonResponse.getInstance("Product id:  "+p.getId()+"does not exist and you are attemping to save it.");
 			}
 		}
 		catch (Exception e ) {
@@ -83,15 +82,15 @@ public class ProductController {
 	}
 
 	@DeleteMapping("/")
-	public JsonResponse delete(@RequestBody Product u) {
+	public JsonResponse delete(@RequestBody Product p) {
 		JsonResponse jr = null;
 		try {
-			if (productRepo.existsById(u.getId())) {
-				productRepo.delete(u);
+			if (productRepo.existsById(p.getId())) {
+				productRepo.delete(p);
 				jr=JsonResponse.getInstance("Product deleted.");
 			}
 			else {
-				jr=JsonResponse.getInstance("Product id:  "+u.getId()+" does not exist and you are attemping to save it.");
+				jr=JsonResponse.getInstance("Product id:  "+p.getId()+" does not exist and you are attemping to save it.");
 			} 
 		}
 		catch (Exception e ) {

@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.prs.business.JsonResponse;
 import com.prs.business.Product;
-import com.prs.db.ProductRepository;
 import com.prs.web.ProductController;
 
 @RunWith(SpringRunner.class)
