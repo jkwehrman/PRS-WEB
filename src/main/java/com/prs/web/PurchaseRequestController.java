@@ -154,7 +154,6 @@ public class PurchaseRequestController {
 	@PutMapping("/")
 	public JsonResponse update(@RequestBody PurchaseRequest u) {
 		JsonResponse jr = null;
-		//May need to enhance exception handling if more than one exception type needs to be caught
 		try {
 			if (purchaseRequestRepo.existsById(u.getId())) {
 				jr=JsonResponse.getInstance(purchaseRequestRepo.save(u));
