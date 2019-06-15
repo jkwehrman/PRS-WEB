@@ -80,6 +80,9 @@ public class PurchaseRequestLineItemController {
 			jr = JsonResponse.getInstance(purchaseRequestLineItemRepo.save(u));
 			recalculatePRTotal(u);
 		}
+			else {
+				jr=JsonResponse.getInstance("PurchaseRequest id:  "+u.getId()+"does not exist and you are attemping to modify it.");
+			}
 		} catch (Exception e) {
 			jr = JsonResponse.getInstance("PRLI Update failed. Exception is " + e.getMessage());
 
@@ -88,25 +91,6 @@ public class PurchaseRequestLineItemController {
 	}
 
 	@DeleteMapping("/")
-	public JsonResponse delete(@RequestBody PurchaseRequestLineItem u) {
-		JsonResponse jr = null;
-		// May need to enhance exception handling if more than one exception type needs
-		// to be caught
-		try {
-			if (purchaseRequestLineItemRepo.existsById(u.getId())) {
-				purchaseRequestLineItemRepo.delete(u);
-				jr = JsonResponse.getInstance("Purchase Request Line Item deleted.");
-			} else {
-				jr = JsonResponse.getInstance("PurchaseRequestLineItem id:  " + u.getId()
-				+ "does not exist and you are attemping to save it.");
-			}
-		} catch (Exception e) {
-			jr = JsonResponse.getInstance(e);
-		}
-		return jr;
-	}
-
-	@DeleteMapping("/purchase-request-line-items/")
 	public JsonResponse deleteWithRecalculating(@RequestBody PurchaseRequestLineItem u) {
 		JsonResponse jr = null;
 		try {
